@@ -1,0 +1,96 @@
+{% extends 'portal/base.html' %}
+
+{% block title %}Notícias & Reportagens - Informativo do Povo Negro{% endblock %}
+
+{% block extra_css %}
+<style>
+    .cat-filter {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 40px;
+        justify-content: center;
+    }
+    .cat-badge {
+        background-color: var(--brown);
+        padding: 5px 15px;
+        border-radius: 20px;
+        color: var(--gold);
+        text-decoration: none;
+        font-size: 0.8rem;
+        font-weight: bold;
+        border: 1px solid var(--gold);
+        transition: all 0.3s;
+    }
+    .cat-badge:hover, .cat-badge.active {
+        background-color: var(--gold);
+        color: var(--black);
+    }
+    .news-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 40px;
+    }
+    .news-item {
+        background-color: #111;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .news-img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+    }
+    .news-body {
+        padding: 25px;
+    }
+    .news-meta {
+        color: var(--gold);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        display: block;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="section-title">
+        <h1>Notícias & Reportagens</h1>
+    </div>
+
+    <div class="cat-filter">
+        <a href="#" class="cat-badge active">Todos</a>
+        {% for categoria in categorias %}
+        <a href="#" class="cat-badge">{{ categoria.nome }}</a>
+        {% endfor %}
+    </div>
+
+    <div class="news-grid">
+        {% for noticia in noticias %}
+        <div class="news-item">
+            {% if noticia.imagem %}
+                <img src="{{ noticia.imagem.url }}" alt="{{ noticia.titulo }}" class="news-img">
+            {% else %}
+                <div class="news-img" style="display: flex; align-items: center; justify-content: center; background-color: var(--brown); color: var(--gold); font-family: 'Cinzel'; font-size: 2rem;">
+                    IPN
+                </div>
+            {% endif %}
+            <div class="news-body">
+                <span class="news-meta">{{ noticia.categoria.nome }} | {{ noticia.data_publicacao|date:"d M Y" }}</span>
+                <h2>{{ noticia.titulo }}</h2>
+                <p>{{ noticia.subtitulo }}</p>
+                <p style="opacity: 0.8;">{{ noticia.conteudo|truncatewords:40 }}</p>
+                <a href="#" class="btn btn-red" style="margin-top: 15px; padding: 8px 16px; font-size: 0.8rem;">Continuar lendo</a>
+            </div>
+        </div>
+        {% empty %}
+        <div style="grid-column: 1/-1; text-align: center; padding: 100px;">
+            <h3>Nenhuma notícia encontrada.</h3>
+            <p>Estamos preparando conteúdos especiais para você.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

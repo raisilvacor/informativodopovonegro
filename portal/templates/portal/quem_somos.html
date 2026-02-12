@@ -1,0 +1,39 @@
+{% extends 'portal/base.html' %}
+
+{% block title %}Quem Somos - Informativo do Povo Negro{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="section-title">
+        <h1>Quem Somos</h1>
+    </div>
+
+    <div style="max-width: 800px; margin: 0 auto; background-color: var(--brown); padding: 40px; border-radius: 8px;">
+        <p style="font-size: 1.2rem; margin-bottom: 20px;">
+            O <strong>Informativo do Povo Negro</strong> nasce como um espaço de comunicação popular, cultural e ancestral, com o objetivo de valorizar o protagonismo negro, registrar memórias, fortalecer identidades e dar visibilidade às múltiplas formas de viver, resistir, criar, celebrar, sonhar e construir vidas negras no território cearense.
+        </p>
+        
+        <p style="font-size: 1.2rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+            <strong>Raiz de Ferro e Sal</strong> simboliza a força, a resistência, o mar, o sertão, o trabalho, a fé e a ancestralidade africana presentes na formação do povo negro do Ceará.
+        </p>
+    </div>
+
+    <div style="margin-top: 60px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+        <div style="text-align: center; padding: 20px;">
+            <div style="font-size: 3rem; color: var(--gold); margin-bottom: 10px;">✊</div>
+            <h3>Resistência</h3>
+            <p>Dar voz às lutas e movimentos sociais do povo negro.</p>
+        </div>
+        <div style="text-align: center; padding: 20px;">
+            <div style="font-size: 3rem; color: var(--gold); margin-bottom: 10px;">🏺</div>
+            <h3>Ancestralidade</h3>
+            <p>Preservar e celebrar as raízes africanas e a fé.</p>
+        </div>
+        <div style="text-align: center; padding: 20px;">
+            <div style="font-size: 3rem; color: var(--gold); margin-bottom: 10px;">🎨</div>
+            <h3>Cultura</h3>
+            <p>Fomentar a arte, a música e a oralidade cearense.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

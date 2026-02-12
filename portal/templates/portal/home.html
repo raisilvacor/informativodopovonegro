@@ -1,0 +1,294 @@
+{% extends 'portal/base.html' %}
+{% load static %}
+
+{% block title %}Início - Informativo do Povo Negro{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero-container {
+        display: flex;
+        height: 60vh;
+        min-height: 400px;
+        background-color: var(--black);
+        overflow: hidden;
+    }
+
+    /* Left side: Static Hero text */
+    .hero-text {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 40px;
+        background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1523821741446-edb2b68bb7a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+        background-size: cover;
+        background-position: center;
+    }
+
+    .hero-text h1 {
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+        color: var(--gold);
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        line-height: 1.2;
+    }
+
+    .hero-text p {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        color: var(--text-light);
+    }
+
+    .hero-btns {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    /* Right side: Slider */
+    .hero-slider {
+        flex: 1.2;
+        position: relative;
+        overflow: hidden;
+        background-color: #111;
+    }
+
+    .slider-wrapper {
+        display: flex;
+        height: 100%;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .slide {
+        min-width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .slide-content {
+        position: absolute;
+        bottom: 40px; /* Space for dots */
+        left: 0;
+        right: 0;
+        padding: 40px 20px 20px;
+        background: linear-gradient(transparent, rgba(0,0,0,0.9));
+        text-align: center;
+    }
+
+    .slide-content h2 {
+        font-size: 1.8rem;
+        color: var(--gold);
+        margin: 0;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    }
+
+    /* Navigation dots */
+    .slider-dots {
+        position: absolute;
+        bottom: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+        z-index: 10;
+    }
+
+    .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        border: none;
+        transition: background-color 0.3s;
+    }
+
+    .dot.active {
+        background-color: var(--gold);
+    }
+
+    /* Section Styles */
+    .section-title {
+        text-align: center;
+        margin-bottom: 40px;
+        position: relative;
+    }
+
+    .section-title::after {
+        content: '';
+        display: block;
+        width: 80px;
+        height: 4px;
+        background-color: var(--red);
+        margin: 10px auto;
+    }
+
+    .news-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+    }
+
+    .news-card {
+        background-color: var(--brown);
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.3s;
+    }
+
+    .news-card:hover {
+        transform: translateY(-10px);
+    }
+
+    .news-img {
+        width: 100%;
+        height: 200px;
+        background-color: #333;
+        object-fit: cover;
+    }
+
+    .news-content {
+        padding: 20px;
+    }
+
+    .news-content h3 {
+        margin-top: 0;
+        font-size: 1.2rem;
+    }
+
+    @media (max-width: 992px) {
+        .hero-container {
+            flex-direction: column;
+            height: auto;
+        }
+        .hero-text {
+            padding: 40px 20px;
+        }
+        .hero-slider {
+            height: 400px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="hero-container">
+    <div class="hero-text">
+        <h1>Raiz de Ferro e Sal — Vozes negras que constroem história no Ceará</h1>
+        <p>Cultura • Fé • Arte • Resistência • Memória • Comunicação Popular</p>
+        <div class="hero-btns">
+            <a href="{% url 'quem_somos' %}" class="btn btn-gold" style="font-size: 0.8rem; padding: 10px 15px;">Conheça o Projeto</a>
+            <a href="{% url 'noticias' %}" class="btn btn-red" style="font-size: 0.8rem; padding: 10px 15px;">Leia as Matérias</a>
+        </div>
+    </div>
+
+    <div class="hero-slider">
+        <div class="slider-wrapper" id="sliderWrapper">
+            {% for noticia in noticias_destaque %}
+            <div class="slide">
+                {% if noticia.imagem %}
+                    <img src="{{ noticia.imagem.url }}" alt="{{ noticia.titulo }}">
+                {% else %}
+                    <div style="width:100%; height:100%; background:#222; display:flex; align-items:center; justify-content:center; color:var(--gold); font-family:'Cinzel'; font-size:3rem;">IPN</div>
+                {% endif %}
+                <div class="slide-content">
+                    <h2>{{ noticia.titulo }}</h2>
+                    <a href="{% url 'noticias' %}" style="color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem; display: block; margin-top: 10px;">Ver notícia &rarr;</a>
+                </div>
+            </div>
+            {% empty %}
+            <div class="slide">
+                <div style="width:100%; height:100%; background:#222; display:flex; flex-direction:column; align-items:center; justify-content:center; color:var(--gold); padding:20px; text-align:center;">
+                    <h2 style="font-family:'Cinzel';">Bem-vindo</h2>
+                    <p style="color:white; font-family:'Montserrat';">Cadastre notícias e marque como "Destaque" para exibi-las aqui.</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if noticias_destaque.count > 1 %}
+        <div class="slider-dots" id="sliderDots">
+            {% for noticia in noticias_destaque %}
+            <button class="dot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.counter0 }}"></button>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<section class="container">
+    <div class="section-title">
+        <h2>Destaques Recentes</h2>
+    </div>
+    
+    <div class="news-grid">
+        {% for noticia in noticias_recentes %}
+        <div class="news-card">
+            {% if noticia.imagem %}
+                <img src="{{ noticia.imagem.url }}" alt="{{ noticia.titulo }}" class="news-img">
+            {% else %}
+                <div class="news-img" style="display: flex; align-items: center; justify-content: center; background-color: var(--brown); color: var(--gold); font-family: 'Cinzel';">
+                    IPN
+                </div>
+            {% endif %}
+            <div class="news-content">
+                <span style="color: var(--gold); font-size: 0.8rem; font-weight: bold; text-transform: uppercase;">{{ noticia.categoria.nome }}</span>
+                <h3>{{ noticia.titulo }}</h3>
+                <p>{{ noticia.subtitulo|truncatewords:15 }}</p>
+                <a href="{% url 'noticias' %}" style="color: var(--red); font-weight: bold; text-decoration: none;">Leia mais &rarr;</a>
+            </div>
+        </div>
+        {% empty %}
+        <p style="text-align: center; grid-column: 1/-1;">Em breve, novas matérias aqui.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<section style="background-color: var(--brown); padding: 60px 0;">
+    <div class="container" style="text-align: center;">
+        <h2 style="color: var(--gold);">Memória Viva</h2>
+        <p style="max-width: 700px; margin: 0 auto 30px;">Conheça as histórias dos mestres, lideranças e griôs que mantêm viva a chama da nossa ancestralidade.</p>
+        <a href="{% url 'memoria_viva' %}" class="btn btn-gold">Explorar Memórias</a>
+    </div>
+</section>
+
+<script>
+    const wrapper = document.getElementById('sliderWrapper');
+    const dots = document.querySelectorAll('.dot');
+    let currentIndex = 0;
+    const slideCount = parseInt("{{ noticias_destaque.count|default:1 }}");
+
+    function goToSlide(index) {
+        if (index < 0) index = slideCount - 1;
+        if (index >= slideCount) index = 0;
+        
+        currentIndex = index;
+        wrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+        
+        // Update dots
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === currentIndex);
+        });
+    }
+
+    dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+            const index = parseInt(dot.getAttribute('data-index'));
+            goToSlide(index);
+        });
+    });
+
+    // Auto slide
+    if (slideCount > 1) {
+        setInterval(() => {
+            goToSlide(currentIndex + 1);
+        }, 5000);
+    }
+</script>
+{% endblock %}

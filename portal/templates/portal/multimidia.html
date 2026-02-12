@@ -1,0 +1,124 @@
+{% extends 'portal/base.html' %}
+
+{% block title %}Multimídia - Informativo do Povo Negro{% endblock %}
+
+{% block extra_css %}
+<style>
+    .media-section {
+        margin-bottom: 60px;
+    }
+    .media-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+    }
+    .video-card {
+        background-color: var(--brown);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .video-thumb {
+        width: 100%;
+        height: 180px;
+        background-color: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+    .play-btn {
+        font-size: 3rem;
+        color: var(--gold);
+        opacity: 0.8;
+        transition: opacity 0.3s;
+    }
+    .video-card:hover .play-btn {
+        opacity: 1;
+    }
+    .video-info {
+        padding: 15px;
+    }
+    .audio-player {
+        background-color: var(--brown);
+        padding: 20px;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 15px;
+        border: 1px solid var(--gold);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="section-title">
+        <h1>Multimídia</h1>
+        <p style="text-align: center;">Documentários, Podcasts, Ensaios Fotográficos e Oralidades.</p>
+    </div>
+
+    <section class="media-section">
+        <h2><span style="color: var(--red);">●</span> Vídeos & Documentários</h2>
+        <div class="media-grid">
+            <div class="video-card">
+                <div class="video-thumb">
+                    <span class="play-btn">▶</span>
+                </div>
+                <div class="video-info">
+                    <h3>Mestres da Tradição</h3>
+                    <p>Série documental sobre os griôs do Ceará.</p>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-thumb">
+                    <span class="play-btn">▶</span>
+                </div>
+                <div class="video-info">
+                    <h3>Canto de Terreiro</h3>
+                    <p>Registros audiovisuais da fé e ancestralidade.</p>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-thumb">
+                    <span class="play-btn">▶</span>
+                </div>
+                <div class="video-info">
+                    <h3>Raiz de Ferro e Sal</h3>
+                    <p>Teaser oficial do projeto.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="media-section">
+        <h2><span style="color: var(--green);">●</span> Podcasts & Oralidades</h2>
+        <div class="audio-player">
+            <div style="font-size: 1.5rem;">🎙️</div>
+            <div style="flex-grow: 1;">
+                <h4 style="margin: 0; color: white;">Episódio 01: A Força da Palavra</h4>
+                <p style="margin: 0; font-size: 0.8rem;">Entrevista com lideranças quilombolas.</p>
+            </div>
+            <div class="btn btn-gold" style="padding: 5px 15px; border-radius: 20px; font-size: 0.7rem;">Ouvir</div>
+        </div>
+        <div class="audio-player">
+            <div style="font-size: 1.5rem;">🎙️</div>
+            <div style="flex-grow: 1;">
+                <h4 style="margin: 0; color: white;">Episódio 02: Tambores do Ceará</h4>
+                <p style="margin: 0; font-size: 0.8rem;">A sonoridade negra cearense.</p>
+            </div>
+            <div class="btn btn-gold" style="padding: 5px 15px; border-radius: 20px; font-size: 0.7rem;">Ouvir</div>
+        </div>
+    </section>
+
+    <section class="media-section">
+        <h2><span style="color: var(--gold);">●</span> Galeria de Fotos</h2>
+        <div class="media-grid">
+            <div style="height: 200px; background-color: #333; border-radius: 8px;"></div>
+            <div style="height: 200px; background-color: #333; border-radius: 8px;"></div>
+            <div style="height: 200px; background-color: #333; border-radius: 8px;"></div>
+            <div style="height: 200px; background-color: #333; border-radius: 8px;"></div>
+        </div>
+    </section>
+</div>
+{% endblock %}

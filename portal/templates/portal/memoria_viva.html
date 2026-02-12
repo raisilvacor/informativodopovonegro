@@ -1,0 +1,105 @@
+{% extends 'portal/base.html' %}
+
+{% block title %}Memória Viva - Informativo do Povo Negro{% endblock %}
+
+{% block extra_css %}
+<style>
+    .memoria-list {
+        display: flex;
+        flex-direction: column;
+        gap: 60px;
+    }
+    .memoria-card {
+        display: grid;
+        grid-template-columns: 350px 1fr;
+        gap: 40px;
+        background-color: var(--brown);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        align-items: center;
+    }
+    .memoria-foto {
+        width: 100%;
+        height: 450px;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 5px solid var(--gold);
+    }
+    .memoria-tipo {
+        display: inline-block;
+        background-color: var(--red);
+        color: white;
+        padding: 5px 15px;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        margin-bottom: 15px;
+        font-weight: bold;
+    }
+    .quote {
+        font-style: italic;
+        font-size: 1.4rem;
+        color: var(--gold);
+        margin: 20px 0;
+        position: relative;
+        padding-left: 30px;
+    }
+    .quote::before {
+        content: '"';
+        position: absolute;
+        left: 0;
+        top: -10px;
+        font-size: 4rem;
+        opacity: 0.3;
+    }
+    @media (max-width: 900px) {
+        .memoria-card {
+            grid-template-columns: 1fr;
+        }
+        .memoria-foto {
+            height: 300px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="section-title">
+        <h1>Memória Viva</h1>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto;">Espaço dedicado às histórias de mestres da cultura, lideranças negras, povos de terreiro, quilombolas, artistas e griôs do Ceará.</p>
+    </div>
+
+    <div class="memoria-list">
+        {% for memoria in memorias %}
+        <div class="memoria-card">
+            <div>
+                {% if memoria.foto %}
+                    <img src="{{ memoria.foto.url }}" alt="{{ memoria.nome }}" class="memoria-foto">
+                {% else %}
+                    <div class="memoria-foto" style="display: flex; align-items: center; justify-content: center; background-color: #222; font-size: 5rem; color: var(--gold);">👤</div>
+                {% endif %}
+            </div>
+            <div>
+                <span class="memoria-tipo">{{ memoria.tipo }}</span>
+                <h2>{{ memoria.nome }}</h2>
+                <div class="quote">
+                    {{ memoria.depoimento }}
+                </div>
+                <div style="margin-top: 20px;">
+                    <p>{{ memoria.biografia }}</p>
+                </div>
+                {% if memoria.video_url %}
+                <a href="{{ memoria.video_url }}" target="_blank" class="btn btn-red" style="margin-top: 20px;">Assista ao Documentário</a>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <div style="text-align: center; padding: 100px; background-color: var(--brown); border-radius: 15px;">
+            <h3>Em breve, novas histórias de vida aqui.</h3>
+            <p>Estamos registrando a memória dos nossos mestres e mestras.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
